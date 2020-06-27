@@ -1,21 +1,110 @@
+$pomodoro: rgb(208, 67, 67);
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+
 body {
+    background-color: rgb(248, 248, 248);
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 24px;
+    color: rgb(79, 79, 79);
+
     * {
         text-align: center;
-        line-height: 3em;
     }
 }
 
-.inline > * {
-    display: inline-block;
+header {
+    background-color: $pomodoro;
+    color: white;
+    padding: 45px 15px;
+}
+
+.inline {
+    margin: 20px 0;
+
+    & > * {
+        display: inline-block;
+        margin: 0 5px;
+    }
+}
+
+#time-left {
+    font-size: 4.5em;
+    margin: 10px 0 30px 0;
+    font-weight: 300;
 }
 
 #timer {
-    width: 100%;
+    width: 100vw;
+    margin: 0 auto;
     background-color: rgb(221, 221, 221);
 }
   
 #progress {
     width: 0%;
-    height: 30px;
+    height: 10px;
     background-color: rgb(242, 255, 129);
+}
+
+.icon {
+    background: none;
+    border: none;
+    font-size: 1.3em;
+    padding: 0 10px;
+    color: #fff;
+    cursor: pointer;
+    
+    &:hover {
+        color: #ddd;
+    }
+    &.arrow {
+        color: $pomodoro;
+        font-size: 1em;
+        &:hover {
+            color: rgb(111, 0, 0);
+        }
+    }
+}
+
+.length {
+    font-size: 1em;
+}
+
+#title {
+    font-size: 1.5em;
+}
+
+#timer-label {
+    font-size: 1.5em;
+    color: rgb(42, 42, 42);
+    margin: 30px 0 0 0;
+}
+
+.panel {
+    margin: 0 20px;
+
+    & label {
+        font-weight: normal;
+    }
+}
+
+#panel-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#credit {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    font-size: 16px;
+    color: rgb(32, 32, 32);
+
+    a {
+        background-color: rgb(32, 32, 32);
+        color: white;
+        padding: 3px;
+        text-decoration: none;
+    }
 }

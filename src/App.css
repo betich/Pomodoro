@@ -1,19 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap");
+body {
+  background-color: #f8f8f8;
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 24px;
+  color: #4f4f4f;
+}
 body * {
   text-align: center;
-  line-height: 3em;
 }
 
+header {
+  background-color: #d04343;
+  color: white;
+  padding: 45px 15px;
+}
+
+.inline {
+  margin: 20px 0;
+}
 .inline > * {
   display: inline-block;
+  margin: 0 5px;
+}
+
+#time-left {
+  font-size: 4.5em;
+  margin: 10px 0 30px 0;
+  font-weight: 300;
 }
 
 #timer {
-  width: 100%;
+  width: 100vw;
+  margin: 0 auto;
   background-color: #dddddd;
 }
 
 #progress {
   width: 0%;
-  height: 30px;
+  height: 10px;
   background-color: #f2ff81;
+}
+
+.icon {
+  background: none;
+  border: none;
+  font-size: 1.3em;
+  padding: 0 10px;
+  color: #fff;
+  cursor: pointer;
+}
+.icon:hover {
+  color: #ddd;
+}
+.icon.arrow {
+  color: #d04343;
+  font-size: 1em;
+}
+.icon.arrow:hover {
+  color: #6f0000;
+}
+
+.length {
+  font-size: 1em;
+}
+
+#title {
+  font-size: 1.5em;
+}
+
+#timer-label {
+  font-size: 1.5em;
+  color: #2a2a2a;
+  margin: 30px 0 0 0;
+}
+
+.panel {
+  margin: 0 20px;
+}
+.panel label {
+  font-weight: normal;
+}
+
+#panel-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#credit {
+  position: absolute;
+  top: 10px;
+  right: 30px;
+  font-size: 16px;
+  color: #202020;
+}
+#credit a {
+  background-color: #202020;
+  color: white;
+  padding: 3px;
+  text-decoration: none;
 }

@@ -4,11 +4,15 @@ import './App.css';
 const Label = (props) => {
   return (
     <div className="panel">
-      <label htmlFor={props.lengthId} id={props.labelId}>{props.label}</label>
+      <h4 className="length-label"><label htmlFor={props.lengthId} id={props.labelId}>{props.label} length</label></h4>
       <div className="inline">
-        <button id={props.decrementId} onClick={props.onClick} value="-">-</button>
-        <div id={props.lengthId}>{props.lengthNum}</div>
-        <button id={props.incrementId} onClick={props.onClick} value="+">+</button>
+        <button className="icon arrow" id={props.decrementId} onClick={props.onClick} value="-">
+          <i className="fas fa-arrow-down"></i>
+        </button>
+        <div className="length" id={props.lengthId}>{props.lengthNum}</div>
+        <button className="icon arrow" id={props.incrementId} onClick={props.onClick} value="+">
+          <i className="fas fa-arrow-up"></i>
+        </button>
       </div>
     </div>
   );
@@ -35,11 +39,11 @@ class Timer extends React.Component {
   }
 
   handleSession(e) {
-    this.changeTimer("sessionTime", e.target.value, this.state.sessionTime, "Session");
+    this.changeTimer("sessionTime", e.currentTarget.value, this.state.sessionTime, "Session");
   }
 
   handleBreak(e) {
-    this.changeTimer("breakTime", e.target.value, this.state.breakTime, "Break");
+    this.changeTimer("breakTime", e.currentTarget.value, this.state.breakTime, "Break");
   }
 
   changeTimer(stateToChange, operator, currentLength, timerType) {
@@ -51,6 +55,7 @@ class Timer extends React.Component {
           this.setState({ [stateToChange]: currentLength + 1 });
         } 
       } else {
+        // Already Started Countdown
         if (operator === "-" && currentLength !== 1 ) {
           this.setState({
             [stateToChange]: currentLength - 1,
@@ -126,52 +131,62 @@ class Timer extends React.Component {
       type: 'Session'
     }, () => {
       clearInterval(this.timer);
+      this.progress = 0;
       this.timer = null;
       this.beep.pause();
       this.beep.currentTime = 0;
-      this.progress.style.width = 0;
     });
   }
 
   render() {
-    let timerIsOn = this.state.isOn ? "Stop" : "Start";
+    let timerIsOn = this.state.isOn ? <i className="fas fa-pause"></i> : <i className="fas fa-play"></i>;
     return (
       <div>
-        <h1 id="time-left">{this.clockFormat()}</h1>
-        <p id="timer-label">{this.state.type}</p>
-        <div id="timer">
-          <div id="progress" ref={(ref) => { this.progress = ref }}></div>
-        </div>
-        <button onClick={this.setTimer} id="start_stop">{timerIsOn}</button>
-        <button onClick={this.reset} id="reset">Reset</button>
+        <header>
+          <h1 id="title">Pomodoro</h1>
+          <h1 id="time-left">{this.clockFormat()}</h1>
+          <div className="inline">
+            <button className="icon" onClick={this.setTimer} id="start_stop">{timerIsOn}</button>
+            <button className="icon" onClick={this.reset} id="reset">
+              <i className="fas fa-undo"></i>
+            </button>
+          </div>
+        </header>
+        <main>
+          <div id="timer">
+            <div id="progress" ref={(ref) => { this.progress = ref }}></div>
+          </div>
+          <h2 id="timer-label">{this.state.type}</h2>
+          <div id="panel-container">  
+            <Label 
+              incrementId="session-increment"
+              decrementId="session-decrement"
+              lengthId="session-length"
+              labelId="session-label"
+              lengthNum={this.state.sessionTime}
+              label="Session"
+              type="session"
+              onClick={this.handleSession}
+            />
+            <Label 
+              incrementId="break-increment"
+              decrementId="break-decrement"
+              lengthId="break-length"
+              labelId="break-label"
+              lengthNum={this.state.breakTime}
+              label="Break"
+              type="break"
+              onClick={this.handleBreak}
+            />
+          </div>
+        </main>
         <audio
           preload="auto" id="beep"
           src="https://www.dl.dropboxusercontent.com/s/rlcsfml0ed9wi3p/beep.mp3"
           ref={(audio) => {
             this.beep = audio;
           }}
-        >
-        </audio>
-        <Label 
-          incrementId="session-increment"
-          decrementId="session-decrement"
-          lengthId="session-length"
-          labelId="session-label"
-          lengthNum={this.state.sessionTime}
-          label="Session"
-          type="session"
-          onClick={this.handleSession}
-        />
-        <Label 
-          incrementId="break-increment"
-          decrementId="break-decrement"
-          lengthId="break-length"
-          labelId="break-label"
-          lengthNum={this.state.breakTime}
-          label="Break"
-          type="break"
-          onClick={this.handleBreak}
-        />
+        ></audio>
       </div>
     );
   }
@@ -180,8 +195,10 @@ class Timer extends React.Component {
 function App() {
   return (
     <div>
-      <h1>Pomodoro</h1>
       <Timer />
+      <div id="credit">
+        <p>by <a href="https://www.github.com/betich" target="_blank">betich</a></p>
+      </div>
     </div>
   );
 }
